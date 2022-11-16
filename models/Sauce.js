@@ -1,5 +1,7 @@
+// Importation de mongoose
 const mongoose = require('mongoose');
 
+// Création du modèle des données stockées dans l'API
 const sauceSchema = mongoose.Schema({
   userId: { type: String, required: true },
   name: { type: String, required: true },
@@ -8,10 +10,11 @@ const sauceSchema = mongoose.Schema({
   mainPepper: { type: String, required: true},
   imageUrl: { type: String, required: true },
   heat: { type: Number, required: true},
-  likes: { type: Number},
-  dislikes: { type: Number},
-  usersLiked: { type: String},
-  usersDislike: { type: String},
+  likes: { type: Number, default: 0},
+  dislikes: { type: Number, default: 0},
+  usersLiked: { type: [String]},
+  usersDislike: { type: [String]},
 });
 
+// Exportation du module
 module.exports = mongoose.model('Sauce', sauceSchema);

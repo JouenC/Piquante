@@ -2,7 +2,6 @@ const Sauce = require('../models/Sauce');
 const fs = require('fs');
 
 exports.createSauce = (req, res, next) => {
-    console.log(req.body)
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
   delete sauceObject._userId;
@@ -59,6 +58,7 @@ exports.deleteSauce = (req, res, next) => {
 };
 
 exports.getOneSauce = (req, res, next) => {
+    console.log(res)
     Sauce.findOne({ _id: req.params.id })
       .then(sauce => res.status(200).json(sauce))
       .catch(error => res.status(404).json({ error }));
@@ -69,3 +69,7 @@ exports.getAllSauce = (req, res, next) => {
       .then(sauces => res.status(200).json(sauces))
       .catch(error => res.status(400).json({ error }));
 };
+
+exports.postLikeSauce = (req, res, next) => {
+    
+}
