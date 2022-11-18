@@ -58,9 +58,10 @@ exports.deleteSauce = (req, res, next) => {
 };
 
 exports.getOneSauce = (req, res, next) => {
-    console.log(res)
     Sauce.findOne({ _id: req.params.id })
-      .then(sauce => res.status(200).json(sauce))
+      .then(sauce => { console.log('début')
+        console.log(sauce) 
+        res.status(200).json(sauce)})
       .catch(error => res.status(404).json({ error }));
 };
 
