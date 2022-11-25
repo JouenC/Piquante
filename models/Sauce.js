@@ -13,7 +13,7 @@ const sauceSchema = mongoose.Schema({
   likes: { type: Number, default: 0},
   dislikes: { type: Number, default: 0},
   usersLiked: { type: [String]},
-  usersDislike: { type: [String]},
+  usersDisliked: { type: [String]},
 });
 
 // Exportation du module
