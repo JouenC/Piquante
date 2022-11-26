@@ -11,12 +11,15 @@ exports.createLikeSauce = (req, res, next) => {
 
                 // Si l'utilisateur like et n'a pas encore liker, ajouter un like    
                 case 1 :
-                    // if(!object.userLiked.includes(req.body.userId)){
+                    // if(!req.body.usersLiked.includes(req.body.userId)){
+                        console.log(req.body.usersLiked)
                         console.log(req.body.userId)
+                        console.log(req.params.id)
+                        console.log(usersLiked)
                         Sauce.updateOne({_id : req.params.id},
                         { 
                             $inc : {likes: 1},
-                            $push : {userLiked: req.body.userId}
+                            $push : {usersLiked: req.body.userId}
                         })
                         .then(res.status(201).json({message: '+1 like'}))
                         .catch(error => { res.status(400).json( { error })})
@@ -27,11 +30,11 @@ exports.createLikeSauce = (req, res, next) => {
 
             // Si l'utilisateur n'a pas encore disliker et qu'il dislike, retirer un like
                 case -1 :
-                    // if(!body.userDisliked.includes(req.body.userId)){
+                    // if(!req.body.usersDisliked.includes(req.body.userId)){
                         Sauce.updateOne({_id : req.params.id},
                         { 
                             $inc : {dislikes: 1},
-                            $push : {userDisliked: req.body.userId}
+                            $push : {usersDisliked: req.body.userId}
                         })
                         .then(res.status(201).json({message: '+1 dislike'}))
                         .catch(error => { res.status(400).json( { error })})
@@ -40,22 +43,22 @@ exports.createLikeSauce = (req, res, next) => {
 
                 case 0 :
                     // Si l'utilisateur a liker et qu'il retire son like
-                    // if(objet.userLiked.includes(req.body.userId)){
+                    // if(req.body.usersLiked.includes(req.body.userId)){
                         Sauce.updateOne({_id : req.params.id},
                         { 
-                            $inc : {likes: -1},
-                            $pull : {userLiked: req.body.userId}
+                            $inc : {likes: 0},
+                            $pull : {usersLiked: req.body.userId}
                         })
                         .then(res.status(201).json({message: 'aucun like'}))
                         .catch(error => { res.status(400).json( { error })})
                     // }  
                     
                     // Si l'utilisateur a disliker et qu'il retire son dislike
-                    // if(objet.userDisliked.includes(req.body.userId)){
+                    // if(req.body.usersDisliked.includes(req.body.userId)){
                         Sauce.updateOne({_id : req.params.id},
                         { 
-                            $inc : {dislikes: -1},
-                            $pull : {userDisliked: req.body.userId}
+                            $inc : {dislikes: 0},
+                            $pull : {usersDisliked: req.body.userId}
                         })
                         .then(res.status(201).json({message: 'aucun dislike'}))
                         .catch(error => { res.status(400).json( { error })})
