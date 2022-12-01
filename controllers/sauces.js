@@ -1,10 +1,12 @@
+// Importation des constantes
 const Sauce = require('../models/Sauce');
 const fs = require('fs');
 
+// Permet de créer une nouvelle sauce en utilisant le model Sauce
 exports.createSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
-  delete sauceObject._userId;
+  delete sauceObject.userId;
   const sauce = new Sauce({
       ...sauceObject,
       userId: req.auth.userId,
@@ -16,6 +18,7 @@ exports.createSauce = (req, res, next) => {
   .catch(error => { res.status(400).json( { error })})
 };
 
+// Permet de modifier une sauce
 exports.modifySauce = (req, res, next) => {
   const sauceObject = req.file ? {
       ...JSON.parse(req.body.sauce),
@@ -38,6 +41,7 @@ exports.modifySauce = (req, res, next) => {
       });
 };
 
+// Permet de supprimer une sauce
 exports.deleteSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id})
       .then(sauce => {
@@ -57,12 +61,14 @@ exports.deleteSauce = (req, res, next) => {
       });
 };
 
+// Permet de récupérer les données d'une sauce en fonction de son id
 exports.getOneSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
       .then(sauce => { res.status(200).json(sauce)})
       .catch(error => res.status(404).json({ error }));
 };
 
+// Permet de récupére les données de toutes les suaces
 exports.getAllSauce = (req, res, next) => {
     Sauce.find()
       .then(sauces => res.status(200).json(sauces))
