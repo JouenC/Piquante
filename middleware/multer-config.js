@@ -1,11 +1,14 @@
+// Importing constants
 const multer = require('multer');
 
+// manage image format
 const MIME_TYPES = {
   'image/jpg': 'jpg',
   'image/jpeg': 'jpg',
   'image/png': 'png'
 };
 
+// manage pictures
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, 'images');
@@ -17,4 +20,5 @@ const storage = multer.diskStorage({
   }
 });
 
+// export multer
 module.exports = multer({storage: storage}).single('image');

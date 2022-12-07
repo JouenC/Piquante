@@ -1,4 +1,4 @@
-// Importation de Mongoose, Express et des différentes routes
+// Import from Mongoose, Express and various routes
 const express = require('express');
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose');
@@ -7,7 +7,7 @@ const saucesRoutes = require('./routes/sauces');
 const userRoutes = require('./routes/user');
 const path = require('path');
 
-// Permet la connexion avec la base de donnée MongoDB
+// Allows connection with the MongoDB database
 mongoose.connect('mongodb+srv://Piqcjuante:Piqcjcjuante@cluster0.twaoxho.mongodb.net/?retryWrites=true&w=majority',
   { useNewUrlParser: true,
     useUnifiedTopology: true })
@@ -16,7 +16,7 @@ mongoose.connect('mongodb+srv://Piqcjuante:Piqcjcjuante@cluster0.twaoxho.mongodb
 
 const app = express();
 
-// Gérer les problèmes de CORS (Cross-Origin Request Sharing)
+// Manage CORS (Cross-Origin Request Sharing) issues
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
@@ -26,10 +26,10 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-// Mise en place des différentes routes
+// Setting up the different routes
 app.use('/api/sauces', saucesRoutes);
 app.use('/api/auth', userRoutes);
 app.use('/images', express.static(path.join(__dirname, 'images')));
 
-// Exportation du fichier
+// File export
 module.exports = app;

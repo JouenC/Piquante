@@ -1,7 +1,9 @@
+// Importing constants
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/Users');
 
+// Allows you to register on the site by creating a login/password pair, to hash the password and to ensure that the email address does not yet exist.
 exports.signup = (req, res, next) => {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
@@ -16,6 +18,7 @@ exports.signup = (req, res, next) => {
       .catch(error => res.status(500).json({ error }));
 };
 
+// Verify the correctness of the login/password pair and send an authentication token to the user
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
         .then(user => {

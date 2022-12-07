@@ -1,7 +1,7 @@
-// Importation de mongoose
+// Importing de mongoose
 const mongoose = require('mongoose');
 
-// Création du modèle des données stockées dans l'API
+// Creation of the data model stored in the API
 const sauceSchema = mongoose.Schema({
   userId: { type: String, required: true },
   name: { type: String, required: true },
@@ -16,5 +16,5 @@ const sauceSchema = mongoose.Schema({
   usersDisliked: { type: [String]},
 });
 
-// Exportation du module
+// module export
 module.exports = mongoose.model('Sauce', sauceSchema);
